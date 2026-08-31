@@ -1,0 +1,56 @@
+:root {
+  --primary-color: #222;
+  --primary-bg-color: #111;
+  --secondary-color: #f280a1;
+  --primary-color-text: white;
+  --secondary-color-text: black;
+  --button-color: #f280a1;
+  --button-hover-color: #eba0b5;
+
+  background-color: var(--primary-bg-color);
+  margin: 0;
+  font-family: "cursive", "Open Sans", "Roboto", sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  background-color: var(--primary-bg-color);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--primary-color-text);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  text-decoration: inherit;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button {
+  background: linear-gradient(
+      to left,
+      var(--button-color) 50%,
+      var(--button-hover-color) 50%
+    )
+    right;
+  background-size: 200%;
+  transition: 0.5s ease-in-out;
+}
+
+.button:hover {
+  background-position: left;
+}

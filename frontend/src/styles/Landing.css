@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+
+.container-buttons {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-buttons a {
+  padding: 10px;
+  display: flex;
+  width: 250px;
+}
+
+.container-buttons button {
+  background-color: var(--secondary-color);
+  border: 0px;
+  color: var(--secondary-color-text);
+  width: 100%;
+  text-align: start;
+}
+
+.container-buttons a:hover button {
+  background-color: #fff;
+  transition: 0.4s ease-in-out;
+}
