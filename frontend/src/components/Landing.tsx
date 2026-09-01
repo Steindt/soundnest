@@ -9,11 +9,11 @@ const Landing = () => {
       <div className="container-buttons">
         <Link to="/admin">
           <LogIn color="white" />
-          <button className="button">Login</button>
+          <div className="button">Login</div>
         </Link>
         <Link to="/">
           <User color="white" />
-          <button className="button">Continue as guest</button>
+          <div className="button">Continue as guest</div>
         </Link>
       </div>
     </div>

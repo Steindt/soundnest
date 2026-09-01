@@ -13,18 +13,23 @@
 .container-buttons a {
   padding: 10px;
   display: flex;
-  width: 250px;
+  width: 300px;
+  height: 2em;
 }
 
-.container-buttons button {
-  background-color: var(--secondary-color);
+.container-buttons svg {
+  height: 2em;
+  width: 2em;
+  padding-right: 5px;
+}
+
+.container-buttons div {
   border: 0px;
-  color: var(--secondary-color-text);
   width: 100%;
-  text-align: start;
+  place-content: center;
 }
 
-.container-buttons a:hover button {
+.container-buttons a:hover div {
   background-color: #fff;
   transition: 0.4s ease-in-out;
 }
