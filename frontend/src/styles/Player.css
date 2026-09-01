@@ -15,12 +15,10 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 800px) {
-}
-
 .container-player-large {
-  height: 100vh;
-  padding-top: 75px;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 75px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -31,13 +29,10 @@
 
 .player {
   width: 100%;
-  height: 100%;
   z-index: 1;
 }
 
 .player-large {
-  width: 100%;
-  max-width: 800px;
   display: flex;
   flex-direction: column;
   cursor: auto;
@@ -115,4 +110,10 @@
 .controls svg:hover {
   transform: scale(1.1);
   color: lightgray;
+}
+
+@media screen and (max-width: 800px) {
+  .container-player-large {
+    height: 100vh;
+  }
 }
