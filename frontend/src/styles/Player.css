@@ -6,12 +6,11 @@
   bottom: 0px;
   left: 0px;
   position: fixed;
-  transition: 0.3s ease-in-out;
   display: flex;
   border-radius: 10px 10px 0px 0px;
   background-color: var(--secondary-bg-color);
   width: 100vw;
-  max-width: 800px;
+  max-width: 500px;
   cursor: pointer;
 }
 
@@ -21,6 +20,16 @@
   padding-bottom: 75px;
   padding-left: 20px;
   padding-right: 20px;
+  animation: large-animation 0.3s ease-in-out;
+}
+
+@keyframes large-animation {
+  0% {
+    max-height: 0px;
+  }
+  100% {
+    max-height: 700px;
+  }
 }
 
 .container-player-small {
@@ -110,10 +119,4 @@
 .controls svg:hover {
   transform: scale(1.1);
   color: lightgray;
-}
-
-@media screen and (max-width: 800px) {
-  .container-player-large {
-    height: 100vh;
-  }
 }
