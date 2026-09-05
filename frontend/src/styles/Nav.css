@@ -1,0 +1,34 @@
+nav {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  padding-bottom: 10px;
+  width: 150px;
+  height: auto;
+  animation: nav-animation 0.3s ease-in-out;
+  background-color: var(--secondary-bg-color);
+  font-size: 1.2em;
+  overflow: hidden;
+  top: 0px;
+  right: 0px;
+  z-index: 0;
+}
+
+@keyframes nav-animation {
+  0% {
+    width: 0px;
+  }
+  100% {
+    width: 150px;
+  }
+}
+
+a {
+  padding: 20px;
+}
+
+#nav {
+  position: relative;
+  z-index: 1;
+}

@@ -14,6 +14,7 @@
   --button-color: #f280a1;
   --button-hover-color: #eba0b5;
   --button-color-text: black;
+  --highlight-color: #9966cc;
 
   background-color: var(--primary-bg-color);
   font-family: monospace;
@@ -25,6 +26,7 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 .container {
@@ -40,6 +42,31 @@ button {
   font-size: inherit;
   cursor: pointer;
   text-decoration: inherit;
+  border: none;
+  stroke: none;
+  padding-block: 0;
+}
+
+input {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:active,
+a:focus,
+input:active,
+input:focus,
+button:active,
+button:focus {
+  outline: 1;
+  outline-width: 1;
+}
+
+input[type="text"] {
+  background-color: var(--primary-bg-color);
+  border: 1px solid white;
 }
 
 a {
