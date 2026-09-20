@@ -27,15 +27,15 @@ const SearchItem = (props: { data: SearchResult; closeFn: () => void }) => {
       {...swipeHandler}
     >
       <div className="search-item">
-        <span className="search-title">{props.data.title}</span>
+        <span className="search-title">{props.data.song.title}</span>
         <div>
           <span className="search-artists">
-            {artistDisplay(props.data.artists)}
+            {artistDisplay(props.data.song.artists)}
           </span>
         </div>
         <div className="search-info-row">
-          <span className="search-misc">{props.data.length}</span>
-          <span className="search-misc">{props.data.source}</span>
+          <span className="search-misc">{props.data.song.length}</span>
+          <span className="search-misc">{props.data.song.source}</span>
         </div>
       </div>
       <div>

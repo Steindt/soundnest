@@ -1,13 +1,35 @@
 const searchResult: SearchResult[] = [{
-  title: "Levels",
+  song: {title: "Levels",
   artists: ["Avicii"],
   source: "Spotify",
-  length: 250
+  length: 250}
 }, {
-  title: "Piercing Light",
+  song: {title: "Piercing Light",
   artists: ["League of Legends", "Mako"],
   source: "Youtube",
-  length: 250
+  length: 250}
+}]
+
+const queueItems: QueueItem[] = [{
+  song: {title: "Levels",
+  artists: ["Avicii"],
+  source: "Spotify",
+  length: 250},
+  requester: {
+    uuid: "0",
+    name: "Person1",
+    displayName: "DisplayName1"
+  }
+}, {
+  song: {title: "Piercing Light",
+  artists: ["League of Legends", "Mako"],
+  source: "Youtube",
+  length: 250},
+  requester: {
+    uuid: "1",
+    name: "Person2",
+    displayName: "DisplayName2"
+  }
 }]
 
 export {searchResult}
