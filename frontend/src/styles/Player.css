@@ -95,12 +95,6 @@
   font-size: 0.8em;
 }
 
-.container-player-small svg {
-  height: 40px;
-  width: 40px;
-  place-self: center;
-}
-
 .controls {
   display: flex;
   place-content: center;
@@ -119,4 +113,15 @@
 .controls svg:hover {
   transform: scale(1.1);
   color: lightgray;
+}
+
+.container-chevron {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 75px;
+  width: 75px;
+  padding: 20px;
+  place-content: center;
+  text-align: center;
 }
