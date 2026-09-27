@@ -7,7 +7,8 @@ nav {
   width: 150px;
   height: auto;
   animation: nav-animation 0.3s ease-in-out;
-  background-color: var(--secondary-bg-color);
+  background-color: rgba(104, 104, 104, 0.356);
+  backdrop-filter: blur(10px);
   font-size: 1.2em;
   overflow: hidden;
   top: 0px;

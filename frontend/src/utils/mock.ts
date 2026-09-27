@@ -32,4 +32,4 @@ const queueItems: QueueItem[] = [{
   }
 }]
 
-export {searchResult}
+export {searchResult, queueItems}

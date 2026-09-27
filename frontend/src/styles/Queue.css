@@ -1,0 +1,73 @@
+.queue-container {
+  width: 100%;
+  background-color: var(--secondary-bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px;
+  max-width: 800px;
+}
+
+.queue-item-container {
+  height: 50px;
+  background-color: var(--primary-bg-color);
+  margin-bottom: 5px;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.queue-item-container button {
+  background-color: red;
+  border-radius: 50%;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+
+.queue-item-cover {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1/1;
+  background-color: white;
+}
+
+.queue-item-info {
+  margin-right: 10px;
+  font-size: 0.6em;
+  color: #d1d1d1;
+}
+
+.queue-item-info:hover {
+  background-color: var(--highlight-color);
+}
+
+.queue-item-container span {
+  white-space: pre;
+}
+
+#title {
+  color: var(--primary-text-color);
+  font-size: 0.9em;
+}
+
+#artists {
+  text-overflow: clip;
+}
+
+@media only screen and (max-width: 560px) {
+  #release {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #length {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 200px) {
+  #artists {
+    display: none;
+  }
+}

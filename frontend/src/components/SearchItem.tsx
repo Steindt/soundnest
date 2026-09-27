@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useSwipe from "../utils/useSwipe";
 import { Check, Plus } from "lucide-react";
+import { artistDisplay } from "../utils/funcs";
 
 const SearchItem = (props: { data: SearchResult; closeFn: () => void }) => {
   const [added, setAdded] = useState(false);
@@ -8,18 +9,6 @@ const SearchItem = (props: { data: SearchResult; closeFn: () => void }) => {
     onSwipedLeft: () => setAdded(true),
     onSwipedRight: () => props.closeFn(),
   });
-
-  // Handle multiple artists, adding a comma inbetween except for the last one
-  const artistDisplay = (artists: string[]) => {
-    let result: string = "";
-    for (let i = 0; i < artists.length; i++) {
-      result += artists[i];
-      if (i < artists.length - 1) {
-        result += ", ";
-      }
-    }
-    return result;
-  };
 
   return (
     <div

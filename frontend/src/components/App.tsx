@@ -1,5 +1,5 @@
+import { useState, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./Dashboard";
 import Admin from "./Admin";
 import "../styles/App.css";
 import Landing from "./Landing";
@@ -8,7 +8,7 @@ import Nav from "./Nav";
 import SearchComponent from "./SearchComponent";
 import Settings from "./Settings";
 import Profile from "./Profile";
-import { useState } from "react";
+import Dashboard from "./Dashboard";
 
 const App = () => {
   const [searchOpen, setSearchOpen] = useState(false);
