@@ -10,6 +10,7 @@
   backdrop-filter: blur(10px);
   padding-top: 50px;
   overflow-y: scroll;
+  z-index: 2;
 }
 
 @keyframes search-animation {
@@ -103,7 +104,7 @@
 }
 
 #search {
-  z-index: 2;
+  z-index: 3;
   width: 50px;
   min-width: 50px;
 }
@@ -116,7 +117,7 @@
 }
 
 #search-input {
-  z-index: 1;
+  z-index: 3;
   height: 100%;
   width: 100%;
 }

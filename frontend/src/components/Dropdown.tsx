@@ -1,5 +1,6 @@
 import "../styles/Dropdown.css";
 import { useEffect, useRef, useState } from "react";
+import clickOutside from "../utils/useClickOutside";
 
 const Dropdown = (props: {
   children: React.ReactNode;
@@ -10,30 +11,34 @@ const Dropdown = (props: {
   const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null!);
 
-  useEffect(() => {
-    const xPos = listRef.current.getBoundingClientRect().right;
-    console.log(xPos);
-    if (listRef.current.getBoundingClientRect().right > window.innerWidth)
-      listRef.current.style.marginLeft =
-        String(window.innerWidth - xPos) + "px";
-  }, []);
+  clickOutside(listRef, () => setOpen(false));
 
+  // Stops dropdown list from appearing outside the window for smaller screens
   useEffect(() => {
+    let width = 0;
+    if (open) {
+      width = window.innerWidth;
+    }
     listRef.current.style.display = open ? "flex" : "none";
+    if (open) {
+      const xPos = listRef.current.getBoundingClientRect().right;
+      if (xPos > width)
+        listRef.current.style.marginLeft = String(width - xPos) + "px";
+    }
   }, [open]);
 
+  useEffect(() => {});
+
   return (
-    <button
-      onBlur={() => setOpen(false)}
-      onClick={() => setOpen(!open)}
-      className="dropdown-container"
-    >
-      {props.text && props.text}
-      {!props.text && props.icon && props.icon}
-      <div onClick={(e) => e.stopPropagation()} ref={listRef} className="list">
+    <div className="dropdown-container-parent" style={props.style}>
+      <button onClick={() => setOpen(!open)} className="dropdown-container">
+        {props.text && props.text}
+        {!props.text && props.icon && props.icon}
+      </button>
+      <div onClick={() => setOpen(false)} ref={listRef} className="list">
         {props.children}
       </div>
-    </button>
+    </div>
   );
 };
 

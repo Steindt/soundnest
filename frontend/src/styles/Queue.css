@@ -2,9 +2,9 @@
   width: 100%;
   background-color: var(--secondary-bg-color);
   border-radius: 10px;
-  overflow: hidden;
   padding: 5px;
   max-width: 800px;
+  flex-shrink: 0;
 }
 
 .queue-item-container {
@@ -14,14 +14,6 @@
   padding: 10px;
   align-items: center;
   display: flex;
-  overflow: hidden;
-}
-
-.queue-item-container button {
-  background-color: red;
-  border-radius: 50%;
-  height: 100%;
-  aspect-ratio: 1/1;
 }
 
 .queue-item-cover {

@@ -1,4 +1,4 @@
-import { Trash } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import "../styles/Queue.css";
 import { artistDisplay } from "../utils/funcs";
 import Dropdown from "./Dropdown";
@@ -19,10 +19,12 @@ const QueueItem = (props: { data: QueueItem }) => {
       <span className="queue-item-info" id="release">
         2026-09-21
       </span>
-      <Dropdown icon={<Trash />}>
-        <button>Play now</button>
-        <button>Move to top</button>
-        <button>Remove from queue</button>
+      <Dropdown style={{ marginLeft: "auto" }} icon={<Ellipsis />}>
+        <button className="dropdown-button" onClick={() => console.log("play")}>
+          Play now
+        </button>
+        <button className="dropdown-button">Move to top</button>
+        <button className="dropdown-button">Remove from queue</button>
       </Dropdown>
     </div>
   );
