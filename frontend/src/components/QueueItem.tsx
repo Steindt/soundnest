@@ -1,20 +1,39 @@
 import { Ellipsis } from "lucide-react";
-import "../styles/Queue.css";
-import { artistDisplay } from "../utils/funcs";
 import Dropdown from "./Dropdown";
+import { artistDisplay } from "../utils/funcs";
 
-const QueueItem = (props: { data: QueueItem }) => {
+const QueueItem = (props: {
+  index: number;
+  item: QueueItem;
+  setDragged?: (a: number) => void;
+  mouse?: [x: number, y: number];
+}) => {
   return (
-    <div className="queue-item-container">
+    <div
+      className="queue-item-container"
+      onMouseDown={(e) => {
+        e.preventDefault();
+        if (props.setDragged) props.setDragged(props.index);
+      }}
+      style={
+        props.mouse
+          ? {
+              position: "absolute",
+              left: `${props.mouse[0]}px`,
+              top: `${props.mouse[1]}px`,
+            }
+          : {}
+      }
+    >
       <div className="queue-item-cover queue-item-info"></div>
       <span className="queue-item-info" id="title">
-        {props.data.song.title}
+        {props.item.song.title}
       </span>
       <span className="queue-item-info" id="artists">
-        {artistDisplay(props.data.song.artists)}
+        {artistDisplay(props.item.song.artists)}
       </span>
       <span className="queue-item-info" id="length">
-        {props.data.song.length}
+        {props.item.song.length}
       </span>
       <span className="queue-item-info" id="release">
         2026-09-21

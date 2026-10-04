@@ -1,7 +1,6 @@
-import { queueItems } from "../utils/mock";
-import QueueItem from "./QueueItem";
 import styles from "../styles/Dashboard.css";
 import Overview from "./Overview";
+import Queue from "./Queue";
 
 const Dashboard = () => {
   return (
@@ -10,12 +9,7 @@ const Dashboard = () => {
         <Overview />
       </div>
       <div id="queue-other-container">
-        <div className="queue-container">
-          <span className="container-header">Queue:</span>
-          {queueItems.map((queueItem) => (
-            <QueueItem data={queueItem} />
-          ))}
-        </div>
+        <Queue />
         <div className="other-container"></div>
       </div>
     </div>
