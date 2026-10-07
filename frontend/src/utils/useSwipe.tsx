@@ -15,7 +15,7 @@ interface SwipeOutput {
   onTouchEnd: () => void;
 }
 
-export default (input: SwipeInput): SwipeOutput => {
+const useSwipe = (input: SwipeInput): SwipeOutput => {
   const [touchStart, setTouchStart] = useState([0, 0]);
   const [touchEnd, setTouchEnd] = useState([0, 0]);
 
@@ -62,3 +62,5 @@ export default (input: SwipeInput): SwipeOutput => {
     onTouchEnd,
   };
 };
+
+export default useSwipe;

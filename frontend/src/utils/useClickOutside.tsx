@@ -14,7 +14,7 @@ const useClickOutside = (ref: RefObject<HTMLDivElement>, func: () => void) => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [ref]);
+  }, [ref, func]);
 };
 
 export default useClickOutside;

@@ -1,4 +1,4 @@
-import { useState, lazy } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./Admin";
 import "../styles/App.css";

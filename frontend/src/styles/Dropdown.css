@@ -10,7 +10,6 @@
   height: auto;
   width: auto;
   color: darkgray;
-  z-index: inherit;
 }
 
 .dropdown-container:hover {

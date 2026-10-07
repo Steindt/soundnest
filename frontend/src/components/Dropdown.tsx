@@ -32,7 +32,6 @@ const Dropdown = (props: {
   return (
     <div className="dropdown-container-parent" style={props.style}>
       <button
-        onMouseDown={(e: MouseEvent) => e.stopPropagation()}
         onPointerDown={(e: MouseEvent) => e.stopPropagation()}
         onClick={() => setOpen(!open)}
         className="dropdown-container"
