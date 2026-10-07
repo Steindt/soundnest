@@ -30,6 +30,16 @@ const queueItems: QueueItem[] = [{
     name: "Person2",
     displayName: "DisplayName2"
   }
+}, {
+  song: {title: "Piercing Light2",
+  artists: ["League of Legends", "Mako"],
+  source: "Youtube",
+  length: 250},
+  requester: {
+    uuid: "1",
+    name: "Person2",
+    displayName: "DisplayName2"
+  }
 }]
 
 export {searchResult, queueItems}

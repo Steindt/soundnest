@@ -12,15 +12,18 @@ const QueueItem = (props: {
     <div
       className="queue-item-container"
       onMouseDown={(e) => {
-        e.preventDefault();
-        if (props.setDragged) props.setDragged(props.index);
+        if (props.setDragged) {
+          e.preventDefault();
+          props.setDragged(props.index);
+        }
       }}
       style={
         props.mouse
           ? {
-              position: "absolute",
+              position: "fixed",
               left: `${props.mouse[0]}px`,
               top: `${props.mouse[1]}px`,
+              pointerEvents: "none",
             }
           : {}
       }

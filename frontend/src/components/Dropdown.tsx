@@ -1,5 +1,5 @@
 import "../styles/Dropdown.css";
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import clickOutside from "../utils/useClickOutside";
 
 const Dropdown = (props: {
@@ -31,7 +31,11 @@ const Dropdown = (props: {
 
   return (
     <div className="dropdown-container-parent" style={props.style}>
-      <button onClick={() => setOpen(!open)} className="dropdown-container">
+      <button
+        onMouseDown={(e: MouseEvent) => e.stopPropagation()}
+        onClick={() => setOpen(!open)}
+        className="dropdown-container"
+      >
         {props.text && props.text}
         {!props.text && props.icon && props.icon}
       </button>
