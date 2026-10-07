@@ -47,8 +47,8 @@ const SearchComponent = (props: {
       </div>
       {props.open && (
         <div className="container-search">
-          {searchResult.map((result) => (
-            <SearchItem data={result} closeFn={closeFn} />
+          {searchResult.map((result, index) => (
+            <SearchItem key={index} data={result} closeFn={closeFn} />
           ))}
         </div>
       )}
