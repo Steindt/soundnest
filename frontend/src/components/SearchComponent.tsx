@@ -10,6 +10,7 @@ const SearchComponent = (props: {
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null!);
+  const timeoutIdRef = useRef<undefined | number>(undefined);
 
   useEffect(() => {
     if (props.open) {
@@ -33,7 +34,13 @@ const SearchComponent = (props: {
             type="text"
             id="search-input"
             ref={inputRef}
-            onChange={() => setSearchValue(inputRef.current.value)}
+            onChange={() => {
+              if (timeoutIdRef !== undefined)
+                window.clearTimeout(timeoutIdRef.current);
+              timeoutIdRef.current = window.setTimeout(() => {
+                setSearchValue(inputRef.current.value);
+              }, 500);
+            }}
           />
         )}
         <button
