@@ -5,16 +5,17 @@ import { artistDisplay } from "../utils/funcs";
 const QueueItem = (props: {
   index: number;
   item: QueueItem;
-  setDragged?: (a: number) => void;
+  setDragged?: (index: number, pointerId: number) => void;
   mouse?: [x: number, y: number];
 }) => {
   return (
     <div
       className="queue-item-container"
-      onMouseDown={(e) => {
+      onPointerDown={(e) => {
         if (props.setDragged) {
           e.preventDefault();
-          props.setDragged(props.index);
+          e.currentTarget.setPointerCapture(e.pointerId);
+          props.setDragged(props.index, e.pointerId);
         }
       }}
       style={
@@ -23,9 +24,11 @@ const QueueItem = (props: {
               position: "fixed",
               left: `${props.mouse[0]}px`,
               top: `${props.mouse[1]}px`,
-              pointerEvents: "none",
+              cursor: "grabbing",
             }
-          : {}
+          : {
+              cursor: "grab",
+            }
       }
     >
       <div className="queue-item-cover queue-item-info"></div>

@@ -12,8 +12,10 @@ const Queue = () => {
   const [dropZone, setDropZone] = useState(0);
   const dropZoneRef = useRef(0);
   const frameRef = useRef<null | number>(null);
+  const pointerIdRef = useRef<number | null>(null);
 
-  const startDragging = (index: number) => {
+  const startDragging = (index: number, pointerId: number) => {
+    pointerIdRef.current = pointerId;
     setDragged(index);
     updateDropZone(index);
   };
@@ -37,22 +39,30 @@ const Queue = () => {
   }, [dragged]);
 
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
+    const handler = (e: PointerEvent) => {
+      // Stop cancelling drag from accidental touches
+      if (pointerIdRef.current !== null && e.pointerId !== pointerIdRef.current)
+        return;
+
       mouseRef.current = [e.clientX, e.clientY];
+
       if (frameRef.current !== null) return;
+
       frameRef.current = requestAnimationFrame(() => {
         setMouse(mouseRef.current);
+
         const currentDragged = draggedRef.current;
         if (currentDragged !== null) {
           updateDropZone(currentDragged);
         }
+
         frameRef.current = null;
       });
     };
 
-    document.addEventListener("mousemove", handler);
+    document.addEventListener("pointermove", handler);
     return () => {
-      document.removeEventListener("mousemove", handler);
+      document.removeEventListener("pointermove", handler);
 
       if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
@@ -63,27 +73,38 @@ const Queue = () => {
 
   // Potential to be loop, but because we set dragged = null it will not
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (dragged !== null) {
-        e.preventDefault();
+    const handler = (e: PointerEvent) => {
+      // Stop cancelling drag from accidental touches
+      if (pointerIdRef.current !== null && e.pointerId !== pointerIdRef.current)
+        return;
 
-        setItems((currentItems) => {
-          const res = [...currentItems];
-          const dropped =
-            dropZoneRef.current >= res.length
-              ? res.length - 1
-              : dropZoneRef.current;
-          [res[dropped], res[dragged]] = [res[dragged], res[dropped]];
-          return res;
-        });
+      if (draggedRef.current === null) return;
 
-        setDragged(null);
-      }
+      e.preventDefault();
+
+      setItems((currentItems) => {
+        const res = [...currentItems];
+        const dropped =
+          dropZoneRef.current >= res.length
+            ? res.length - 1
+            : dropZoneRef.current;
+        [res[dropped], res[draggedRef.current as number]] = [
+          res[draggedRef.current as number],
+          res[dropped],
+        ];
+        return res;
+      });
+
+      setDragged(null);
     };
 
-    document.addEventListener("mouseup", handler);
-    return () => document.removeEventListener("mouseup", handler);
-  }, [dragged]);
+    document.addEventListener("pointerup", handler);
+    document.addEventListener("pointercancel", handler);
+    return () => {
+      document.removeEventListener("pointerup", handler);
+      document.removeEventListener("pointercancel", handler);
+    };
+  }, []);
 
   return (
     <div className="queue-container">

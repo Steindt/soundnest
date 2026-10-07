@@ -5,6 +5,8 @@
   padding: 5px;
   max-width: 800px;
   flex-shrink: 0;
+
+  touch-action: none;
 }
 
 .queue-item-container {
@@ -14,7 +16,9 @@
   padding: 10px;
   align-items: center;
   display: flex;
-  cursor: grab;
+
+  touch-action: none;
+  user-select: none;
 }
 
 .drop-zone {
