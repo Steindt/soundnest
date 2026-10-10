@@ -28,4 +28,8 @@ const PlayerManager = () => {
   );
 };
 
-export default PlayerManager;
+const playerUpdate = (body: unknown) => {
+  console.log(JSON.stringify(body));
+};
+
+export { PlayerManager, playerUpdate };

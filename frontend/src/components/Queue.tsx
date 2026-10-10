@@ -136,4 +136,8 @@ const Queue = () => {
   );
 };
 
-export default Queue;
+const queueUpdate = (body: unknown) => {
+  console.log(JSON.stringify(body));
+};
+
+export { Queue, queueUpdate };
