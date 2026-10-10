@@ -3,8 +3,8 @@ spring:
     name: backend
 server:
   port: 5173
-logging:
-  level:
-    org.springframework.web.socket: TRACE
-    org.springframework.web.socket.messaging: TRACE
-    org.springframework.security: DEBUG
+# logging:
+#   level:
+#     org.springframework.web.socket: TRACE
+#     org.springframework.web.socket.messaging: TRACE
+#     org.springframework.security: DEBUG

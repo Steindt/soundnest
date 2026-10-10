@@ -1,4 +1,4 @@
-package soundnest.backend.model;
+package soundnest.backend.model.message;
 
 public class QueueMessage {
   private String queue;
