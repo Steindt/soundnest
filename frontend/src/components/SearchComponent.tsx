@@ -19,7 +19,12 @@ const SearchComponent = (props: {
   }, [props.open]);
 
   useEffect(() => {
-    console.log("Searching for " + searchValue);
+    if (searchValue === "") return;
+    fetch(`/search/${searchValue}`, {
+      credentials: "include",
+    }).then((value: Response) => {
+      console.log(JSON.stringify(value.body));
+    });
   }, [searchValue]);
 
   const closeFn = () => {
