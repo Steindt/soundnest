@@ -6,4 +6,8 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi[standard]>=0.143.3",
+    "websockets>=17.2",
+    "yt-dlp"
 ]
+[tool.fastapi]
+entrypoint = "app.main:app"

@@ -20,11 +20,16 @@ const SearchComponent = (props: {
 
   useEffect(() => {
     if (searchValue === "") return;
-    fetch(`/search/${searchValue}`, {
+    fetch(`/search?query=${encodeURIComponent(searchValue)}`, {
       credentials: "include",
-    }).then((value: Response) => {
-      console.log(JSON.stringify(value.body));
-    });
+    })
+      .then((res: Response) => {
+        return res.json();
+      })
+      .then((data) => console.log(data))
+      .catch((reject) => {
+        console.error(reject);
+      });
   }, [searchValue]);
 
   const closeFn = () => {

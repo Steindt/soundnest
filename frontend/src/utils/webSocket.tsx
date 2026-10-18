@@ -1,102 +1,98 @@
-import { Client, IMessage } from "@stomp/stompjs";
 import {
   createContext,
   PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { queueUpdate } from "../components/Queue";
 import { playerUpdate } from "../components/PlayerManager";
 
+type Handler<T = unknown> = (body: T) => void;
+
 type WebSocketContext = {
   connected: boolean;
-  subscribe: (
-    destination: string,
-    callback: (message: IMessage) => void,
-  ) => () => void;
-  publish: (destination: string, body: unknown) => void;
+  subscribe: (topic: string, callback: Handler<unknown>) => () => void;
+  publish: (topic: string, body?: unknown) => void;
 };
 
 const WebSocketContext = createContext<WebSocketContext | null>(null);
 
 const WebSocketProvider = ({ children }: PropsWithChildren) => {
   const [connected, setConnected] = useState(false);
-  const [client, setClient] = useState<Client | null>(null);
+  const client = useRef<WebSocket | null>(null);
+  const retry = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const cancelled = useRef(false);
+  const handlersRef = useRef(new Map<string, Set<Handler>>());
 
   useEffect(() => {
     console.log("Setting up WebSocket");
 
-    const stompClient = new Client({
-      brokerURL: "ws://localhost:5173/ws",
-      reconnectDelay: 5000,
-      // debug: (message) => {
-      //   console.log("[STOMP]", message);
-      // },
-      onConnect: () => {
-        console.log("Connected to WebSocket");
-        setConnected(true);
-        // subscribe("/topic/queue", queueUpdate);
-        // subscribe("/topic/player", playerUpdate);
-      },
-      onDisconnect: () => {
-        console.log("Disconnected from WebSocket");
-        setConnected(false);
-      },
-      onWebSocketClose: (event) => {
-        console.log("Closed WebSocket", {
-          code: event.code,
-          reason: event.reason,
-          wasClean: event.wasClean,
-        });
-        setConnected(false);
-      },
-      onWebSocketError: (event) => {
-        console.error("WebSocket error", event);
-      },
-      onStompError: (frame) => {
-        console.error("Broker reported error: " + frame.headers["message"]);
-        console.error("Additional details: " + frame.body);
-      },
-    });
+    const connect = () => {
+      client.current = new WebSocket("ws://localhost:5173/ws");
+      if (client !== null) {
+        client.current.onopen = () => {
+          setConnected(true);
+          console.log("Connected to websocket");
+        };
 
-    setClient(stompClient);
-    stompClient.activate();
+        client.current.onclose = (e) => {
+          console.log("Disconnected from websocket", e.code, e.wasClean);
+          setConnected(false);
+          retry.current = setTimeout(connect, 5000);
+        };
+
+        client.current.onmessage = (e) => {
+          try {
+            const { topic, body } = JSON.parse(e.data.toString());
+            handlersRef.current
+              .get(topic)
+              ?.forEach((callback) => callback(body));
+          } catch (err) {
+            console.error("Received back websocket message", err);
+          }
+        };
+
+        client.current.onerror = (e) => {
+          console.error("Error encountered on websocket", e);
+        };
+      } else {
+        console.error("Failed to create websocket");
+      }
+    };
+
+    connect();
 
     return () => {
-      console.log("Cleaning up WebSocket");
+      cancelled.current = true;
+      console.log("Cleaning up webSocket");
       setConnected(false);
-      void stompClient.deactivate();
+      clearTimeout(retry.current);
+      client.current?.close();
+      client.current = null;
     };
   }, []);
 
-  const subscribe = useCallback(
-    (destination: string, callback: (message: IMessage) => void) => {
-      if (!client || !connected) {
-        return () => {};
-      }
+  const subscribe = useCallback((topic: string, callback: Handler<unknown>) => {
+    if (!handlersRef.current.has(topic))
+      handlersRef.current.set(topic, new Set());
 
-      const subscription = client.subscribe(destination, callback);
+    handlersRef.current.get(topic)!.add(callback);
 
-      return () => subscription.unsubscribe();
-    },
-    [client, connected],
-  );
+    return () => handlersRef.current.get(topic)?.delete(callback);
+  }, []);
 
-  const publish = useCallback(
-    (destination: string, body: unknown) => {
-      if (!client || !connected) {
-        throw new Error("STOMP client not connected");
-      }
-
-      client.publish({
-        destination,
-        body: JSON.stringify(body),
-      });
-    },
-    [client, connected],
-  );
+  const publish = useCallback((topic: string, body: unknown) => {
+    if (
+      client.current === null ||
+      client.current.readyState !== WebSocket.OPEN
+    ) {
+      console.error("Not connected to websocket, dropping message", topic);
+    }
+    client.current!.send(JSON.stringify({ topic, body }));
+  }, []);
 
   return (
     <WebSocketContext.Provider value={{ connected, subscribe, publish }}>
