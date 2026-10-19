@@ -1,8 +1,8 @@
-import { Search, X } from "lucide-react";
+import { LoaderCircle, Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import "../styles/Search.css";
-import { searchResult } from "../utils/mock";
 import SearchItem from "./SearchItem";
+import { searchResult } from "../utils/mock";
 
 const SearchComponent = (props: {
   setOpen: (isNav: boolean, shouldOpen: boolean) => void;
@@ -11,6 +11,8 @@ const SearchComponent = (props: {
   const [searchValue, setSearchValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null!);
   const timeoutIdRef = useRef<undefined | number>(undefined);
+  const [results, setResults] = useState<Song[]>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (props.open) {
@@ -19,22 +21,40 @@ const SearchComponent = (props: {
   }, [props.open]);
 
   useEffect(() => {
-    if (searchValue === "") return;
+    if (searchValue === "") {
+      if (loading) setLoading(false);
+      return;
+    }
+
     fetch(`/search?query=${encodeURIComponent(searchValue)}`, {
       credentials: "include",
     })
       .then((res: Response) => {
         return res.json();
       })
-      .then((data) => console.log(data))
+      .then((data: Song[]) => setResults(data))
       .catch((reject) => {
         console.error(reject);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [searchValue]);
 
   const closeFn = () => {
     props.setOpen(false, false);
   };
+
+  const loadingVisual = [];
+
+  for (let i = 0; i < 10; i++) {
+    loadingVisual.push(
+      <SearchItem
+        key={i}
+        data={searchResult[i % 3]}
+        closeFn={() => {}}
+        blurred
+      />,
+    );
+  }
 
   return (
     <>
@@ -45,6 +65,9 @@ const SearchComponent = (props: {
             id="search-input"
             ref={inputRef}
             onChange={() => {
+              setResults(undefined);
+              if (inputRef.current.value !== "") setLoading(true);
+              else setLoading(false);
               if (timeoutIdRef !== undefined)
                 window.clearTimeout(timeoutIdRef.current);
               timeoutIdRef.current = window.setTimeout(() => {
@@ -64,9 +87,11 @@ const SearchComponent = (props: {
       </div>
       {props.open && (
         <div className="container-search">
-          {searchResult.map((result, index) => (
-            <SearchItem key={index} data={result} closeFn={closeFn} />
-          ))}
+          {loading && loadingVisual}
+          {!loading &&
+            results?.map((value, index) => (
+              <SearchItem key={index} data={value} closeFn={closeFn} />
+            ))}
         </div>
       )}
     </>

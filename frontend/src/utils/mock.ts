@@ -1,45 +1,53 @@
-const searchResult: SearchResult[] = [{
-  song: {title: "Levels",
-  artists: ["Avicii"],
-  source: "Spotify",
-  length: 250}
+const searchResult: Song[] = [{
+  duration: 285,
+  id: "123",
+  ie_key: "Soundcloud",
+  title: "Levels",
+  uploader: "Avicii",
 }, {
-  song: {title: "Piercing Light",
-  artists: ["League of Legends", "Mako"],
-  source: "Youtube",
-  length: 250}
+  duration: 218,
+    id: "124",
+    ie_key: "Soundcloud",
+    title: "Piercing Light",
+    uploader: "League of Legends",
+}, {
+  duration: 132,
+    id: "125",
+    ie_key: "Soundcloud",
+    title: "Magic",
+    uploader: "Pilot",
 }]
 
-const queueItems: QueueItem[] = [{
-  song: {title: "Levels",
-  artists: ["Avicii"],
-  source: "Spotify",
-  length: 250},
-  requester: {
-    uuid: "0",
-    name: "Person1",
-    displayName: "DisplayName1"
-  }
-}, {
-  song: {title: "Piercing Light",
-  artists: ["League of Legends", "Mako"],
-  source: "Youtube",
-  length: 250},
-  requester: {
-    uuid: "1",
-    name: "Person2",
-    displayName: "DisplayName2"
-  }
-}, {
-  song: {title: "Piercing Light2",
-  artists: ["League of Legends", "Mako"],
-  source: "Youtube",
-  length: 250},
-  requester: {
-    uuid: "1",
-    name: "Person2",
-    displayName: "DisplayName2"
-  }
-}]
+const queueItems: QueueItem[] = [{song: {
+  duration: 285,
+  id: "123",
+  ie_key: "Soundcloud",
+  title: "Levels",
+  uploader: "Avicii",
+}, requester: {
+  uuid: "0",
+  name: "Karl",
+  displayName: "Stein"
+}}, {song: {
+  duration: 218,
+  id: "124",
+  ie_key: "Soundcloud",
+  title: "Piercing Light",
+  uploader: "League of Legends",
+}, requester: {
+  uuid: "0",
+  name: "Karl",
+  displayName: "Stein"
+}}, {song: {
+  duration: 132,
+  id: "125",
+  ie_key: "Soundcloud",
+  title: "Magic",
+  uploader: "Pilot",
+}, requester: {
+  uuid: "0",
+  name: "Karl",
+  displayName: "Stein"
+}}]
 
 export {searchResult, queueItems}

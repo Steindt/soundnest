@@ -36,10 +36,10 @@ const QueueItem = (props: {
         {props.item.song.title}
       </span>
       <span className="queue-item-info" id="artists">
-        {artistDisplay(props.item.song.artists)}
+        {artistDisplay(props.item.song.uploader)}
       </span>
       <span className="queue-item-info" id="length">
-        {props.item.song.length}
+        {props.item.song.duration}
       </span>
       <span className="queue-item-info" id="release">
         2026-09-21
